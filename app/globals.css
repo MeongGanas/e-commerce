@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 .input {
-  @apply block w-full bg-transparent border border-gray-200 bg-white px-5 py-3 rounded-md outline-none;
+  @apply block w-full bg-transparent border border-gray-200 px-5 py-3 rounded-md outline-none invalid:border-red-600;
 }
 
 .form {
-  @apply min-w-[320px] max-w-screen-sm border rounded-lg bg-background p-5 mx-auto;
+  @apply min-w-[320px] max-w-screen-sm border rounded-lg bg-background p-5 mx-auto text-white;
 }

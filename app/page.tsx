@@ -1,7 +1,14 @@
-export default function Home() {
+import { authOptions } from "@/auth";
+import { getServerSession } from "next-auth";
+
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+
   return (
     <div className="container">
-      <h1>Hello World</h1>
+      <h1 className="text-3xl">
+        Hello, {session ? session?.user?.name : "Guest"}!
+      </h1>
     </div>
   );
 }

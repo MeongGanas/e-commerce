@@ -8,10 +8,16 @@ import {
   Button,
 } from "@nextui-org/react";
 
-export default function Nav() {
+export default function Nav({
+  actionLabel,
+  actionUrl,
+}: {
+  actionLabel: string;
+  actionUrl: string;
+}) {
   return (
     <>
-      <Navbar className="sticky">
+      <Navbar className="sticky text-white" isBlurred={false}>
         <NavbarContent>
           <NavbarBrand>
             <Link href="/" className="font-bold text-inherit">
@@ -27,8 +33,8 @@ export default function Nav() {
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem>
-            <Link href="/login" className="text-black">
-              Login
+            <Link href={actionUrl} className="text-white">
+              {actionLabel}
             </Link>
           </NavbarItem>
           <NavbarItem>
@@ -64,7 +70,7 @@ function SearchBar() {
       <div className="relative">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <svg
-            className="w-4 h-4 text-black"
+            className="w-4 h-4 text-slate-50"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -82,7 +88,7 @@ function SearchBar() {
         <input
           type="search"
           id="default-search"
-          className="block w-full ps-10 py-3 text-sm bg-white border border-gray-300 rounded-lg"
+          className="block w-full ps-10 py-3 text-sm border bg-transparent border-gray-300 rounded-lg"
           placeholder="Search something here..."
           required
         />
