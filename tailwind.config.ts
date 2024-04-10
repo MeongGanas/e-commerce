@@ -11,8 +11,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#1e1e1e",
-        body: "#ffffff",
+        primary: "#436850",
+        secondary: "#ADBC9F",
+        text: "#FBFADA",
       },
       container: {
         center: true,

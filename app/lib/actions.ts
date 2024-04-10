@@ -1,4 +1,5 @@
 import { signIn } from "next-auth/react";
+import { revalidatePath } from "next/cache";
 
 export async function register(
   formState: { success: boolean; mssg: string } | undefined,
@@ -23,15 +24,19 @@ export async function authorize(
   formState: { success: boolean; mssg: string } | undefined,
   formData: FormData
 ) {
-  const signInData = await signIn("credentials", {
-    email: formData.get("email"),
-    password: formData.get("password"),
-    redirect: true,
-  });
+  try {
+    const signInData = await signIn("credentials", {
+      email: formData.get("email"),
+      password: formData.get("password"),
+      redirect: false,
+    });
 
-  if (signInData?.error) {
-    return { success: false, mssg: signInData.error };
+    if (signInData?.error) {
+      return { success: false, mssg: signInData.error };
+    }
+
+    return { success: true, mssg: "Login success!" };
+  } catch (error) {
+    return { success: false, mssg: "Something went wrong!" };
   }
-
-  return { success: true, mssg: "Login success!" };
 }

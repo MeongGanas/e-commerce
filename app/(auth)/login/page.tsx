@@ -5,9 +5,17 @@ import SubmitButton from "../../components/button";
 import { authorize } from "@/app/lib/actions";
 import { useFormState } from "react-dom";
 import Circles from "@/app/components/circles";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Page() {
   const [formState, dispatch] = useFormState(authorize, undefined);
+
+  useEffect(() => {
+    if (formState && formState.success) {
+      redirect("/");
+    }
+  }, [formState]);
 
   return (
     <form action={dispatch} method="POST" className="form">
@@ -57,7 +65,7 @@ export default function Page() {
       </Button>
 
       {formState && !formState.success && (
-        <p className="text-red-700 mt-5">Something went wrong</p>
+        <p className="text-red-400 mt-5">Something went wrong</p>
       )}
     </form>
   );

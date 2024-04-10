@@ -1,4 +1,5 @@
 "use client";
+import { ShoppingCart } from "@mui/icons-material";
 import {
   Navbar,
   NavbarBrand,
@@ -8,16 +9,13 @@ import {
   Button,
 } from "@nextui-org/react";
 
-export default function Nav({
-  actionLabel,
-  actionUrl,
-}: {
-  actionLabel: string;
-  actionUrl: string;
-}) {
+export default function Nav({ session }: { session: Object | null }) {
+  const actionLabel = session ? "Logout" : "Login";
+  const actionUrl = session ? "/api/auth/signout" : "/login";
+
   return (
     <>
-      <Navbar className="sticky text-white" isBlurred={false}>
+      <Navbar className="bg-primary sticky text-text" isBlurred={false}>
         <NavbarContent>
           <NavbarBrand>
             <Link href="/" className="font-bold text-inherit">
@@ -33,23 +31,28 @@ export default function Nav({
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem>
-            <Link href={actionUrl} className="text-white">
+            <Button className="bg-transparent w-fit px-0 py-0 text-text">
+              <ShoppingCart />
+            </Button>
+          </NavbarItem>
+          <NavbarItem>
+            <Link href={actionUrl} className="text-text">
               {actionLabel}
             </Link>
           </NavbarItem>
-          <NavbarItem>
+          <NavbarItem className={`${session ? "hidden" : "block"}`}>
             <Button
               as={Link}
               href="/register"
               variant="flat"
-              className="bg-white text-black"
+              className="bg-text text-black"
             >
               Sign Up
             </Button>
           </NavbarItem>
         </NavbarContent>
       </Navbar>
-      <Navbar className="sticky sm:hidden">
+      <Navbar className="bg-primary sticky sm:hidden">
         <NavbarContent className="w-full">
           <SearchBar />
         </NavbarContent>
@@ -70,7 +73,7 @@ function SearchBar() {
       <div className="relative">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <svg
-            className="w-4 h-4 text-slate-50"
+            className="w-4 h-4 text-black"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -88,7 +91,7 @@ function SearchBar() {
         <input
           type="search"
           id="default-search"
-          className="block w-full ps-10 py-3 text-sm border bg-transparent border-gray-300 rounded-lg"
+          className="block w-full bg-text text-black ps-10 py-3 text-sm border border-gray-300 rounded-lg"
           placeholder="Search something here..."
           required
         />

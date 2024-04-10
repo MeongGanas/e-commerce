@@ -18,14 +18,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession(authOptions);
-  const actionLabel = session ? "Logout" : "Login";
-  const actionUrl = session ? "/api/auth/signout" : "/api/auth/login";
 
   return (
     <html lang="en">
-      <body className={`${poppins.className} min-h-screen bg-body antialiased`}>
+      <body className={`${poppins.className} min-h-screen bg-text antialiased`}>
         <Provider>
-          <Nav actionLabel={actionLabel} actionUrl={actionUrl} />
+          <Nav session={session} />
           <main className="p-5">{children}</main>
         </Provider>
       </body>
